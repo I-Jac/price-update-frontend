@@ -4,10 +4,9 @@ import {
     Keypair, 
     PublicKey, 
     Transaction, 
-    VersionedTransaction, 
     TransactionInstruction, 
     AccountMeta, 
-    SystemProgram, 
+    // SystemProgram, // Removed unused import
     ComputeBudgetProgram, 
     Commitment 
 } from '@solana/web3.js'
@@ -42,43 +41,16 @@ const PRICE_EXPONENT = -8
 
 // --- End Configuration ---
 
-// --- Simple Wallet Implementation for Keypair ---
-// Implements the anchor.Wallet interface
-class KeypairWallet implements anchor.Wallet {
-    constructor(readonly keypair: Keypair) {}
-
-    async signTransaction<T extends Transaction | VersionedTransaction>(tx: T): Promise<T> {
-        if (tx instanceof VersionedTransaction) {
-            tx.sign([this.keypair])
-        } else { // Legacy Transaction
-            tx.partialSign(this.keypair)
-        }
-        return tx
-    }
-
-    async signAllTransactions<T extends Transaction | VersionedTransaction>(txs: T[]): Promise<T[]> {
-        return txs.map((t) => {
-            if (t instanceof VersionedTransaction) {
-                t.sign([this.keypair])
-            } else { // Legacy Transaction
-                 t.partialSign(this.keypair)
-            }
-            return t
-        })
-    }
-
-    get publicKey(): PublicKey {
-        return this.keypair.publicKey
-    }
-}
+// --- Simple Wallet Implementation for Keypair (REMOVED) ---
+// class KeypairWallet implements anchor.Wallet { ... }
 // ---------------------------------------------
 
 // Globals
 let connection: Connection
 let authority: Keypair // Use 'authority' naming for clarity, even if just payer
 let currentClusterInfo: ClusterInfo // Store cluster info globally
-let provider: anchor.AnchorProvider
-let mockPriceFeedProgram: anchor.Program<any>
+// let provider: anchor.AnchorProvider; // Removed unused global
+// let mockPriceFeedProgram: anchor.Program<any>; // Removed unused global
 
 // Interface for cluster information (same as faucet)
 interface ClusterInfo {
