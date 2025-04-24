@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mock Price Feed Updater</title>
+    <link rel="stylesheet" href="./src/style.css" />
+  </head>
+  <body>
+    <div id="app">
+      <h1>Update Mock Price Feed</h1>
+
+      <div class="card">
+        <label for="price-feed-select">Symbol:</label>
+        <select id="price-feed-select">
+          <option value="">-- Loading Feeds --</option>
+          <!-- Options will be populated by script -->
+        </select>
+      </div>
+
+      <div class="card">
+        <label for="new-price">Set Price:</label>
+        <input type="number" id="new-price" placeholder="e.g., 150.00" step="any" />
+        <small>Input dollar value</small>
+      </div>
+
+      <!-- Exponent is now hardcoded in the script -->
+      <!-- <div class="card">
+        <label for="new-exponent">New Exponent:</label>
+        <input type="number" id="new-exponent" placeholder="e.g., -8" step="1" />
+      </div> -->
+
+      <div class="card">
+         <button id="update-price-button" type="button">Update Price</button>
+      </div>
+
+      <div id="status-area">
+        <p id="status-message">Status: Waiting for input...</p>
+        <p id="tx-signature"></p>
+         <div id="feed-account-link-area" class="links-area"></div>
+      </div>
+
+    </div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
